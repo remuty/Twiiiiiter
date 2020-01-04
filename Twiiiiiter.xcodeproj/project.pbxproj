@@ -15,6 +15,8 @@
 		AA5350BD23C0C7FC00560A3B /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5350BC23C0C7FC00560A3B /* TimeLineViewController.swift */; };
 		AA5350BF23C0C82F00560A3B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5350BE23C0C82F00560A3B /* HomeViewController.swift */; };
 		AA5350C123C0CA1B00560A3B /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5350C023C0CA1B00560A3B /* UserListViewController.swift */; };
+		AA952E8E23C0CF030038379D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA952E8C23C0CF030038379D /* TableViewCell.swift */; };
+		AA952E8F23C0CF030038379D /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA952E8D23C0CF030038379D /* TableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		AA5350BC23C0C7FC00560A3B /* TimeLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		AA5350BE23C0C82F00560A3B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AA5350C023C0CA1B00560A3B /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		AA952E8C23C0CF030038379D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		AA952E8D23C0CF030038379D /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +69,6 @@
 				AA5350B923C0C6E300560A3B /* Controller */,
 				AA5350A323C0B29500560A3B /* AppDelegate.swift */,
 				AA5350A523C0B29500560A3B /* SceneDelegate.swift */,
-				AA5350AE23C0B29600560A3B /* Assets.xcassets */,
 				AA5350B023C0B29600560A3B /* LaunchScreen.storyboard */,
 				AA5350B323C0B29600560A3B /* Info.plist */,
 			);
@@ -86,6 +89,9 @@
 			isa = PBXGroup;
 			children = (
 				AA5350AB23C0B29500560A3B /* Main.storyboard */,
+				AA5350AE23C0B29600560A3B /* Assets.xcassets */,
+				AA952E8C23C0CF030038379D /* TableViewCell.swift */,
+				AA952E8D23C0CF030038379D /* TableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -156,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA5350B223C0B29600560A3B /* LaunchScreen.storyboard in Resources */,
+				AA952E8F23C0CF030038379D /* TableViewCell.xib in Resources */,
 				AA5350AF23C0B29600560A3B /* Assets.xcassets in Resources */,
 				AA5350AD23C0B29500560A3B /* Main.storyboard in Resources */,
 			);
@@ -171,6 +178,7 @@
 				AA5350C123C0CA1B00560A3B /* UserListViewController.swift in Sources */,
 				AA5350A423C0B29500560A3B /* AppDelegate.swift in Sources */,
 				AA5350A623C0B29500560A3B /* SceneDelegate.swift in Sources */,
+				AA952E8E23C0CF030038379D /* TableViewCell.swift in Sources */,
 				AA5350BD23C0C7FC00560A3B /* TimeLineViewController.swift in Sources */,
 				AA5350BF23C0C82F00560A3B /* HomeViewController.swift in Sources */,
 			);

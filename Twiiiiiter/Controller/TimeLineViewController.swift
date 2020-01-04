@@ -8,14 +8,32 @@
 
 import UIKit
 
-class TimeLineViewController: UIViewController {
+class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+    var commentArray: [String] = ["Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.","Lorem ipsum dolor sit amet, consectetur.","Ok.","Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.","Lorem ipsum dolor sit amet, consectetur."]
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //記事の数
+        return commentArray.count
+     }
+    
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
+         cell.commentLabel.text = commentArray[indexPath.row]
+         return cell
+     }
 
     /*
     // MARK: - Navigation

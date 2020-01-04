@@ -52,6 +52,9 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" id="HRZ-wx-xrl"/>
+                    <connections>
+                        <outlet property="tableView" destination="I40-Pi-f58" id="qlS-hd-82b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>

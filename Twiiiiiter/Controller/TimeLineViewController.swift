@@ -12,7 +12,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     
-    var commentArray: [String] = ["Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.","Lorem ipsum dolor sit amet, consectetur.","Ok.","Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.","Lorem ipsum dolor sit amet, consectetur."]
+    fileprivate var info: [UserInfo] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,16 +22,23 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+        API.fetchUserInfo(completion: { (info) in
+            self.info = info
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //記事の数
-        return commentArray.count
+        return info.count
      }
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
-         cell.commentLabel.text = commentArray[indexPath.row]
+        cell.commentLabel.text = info[indexPath.row].text
+        cell.userNameLabel.text = info[indexPath.row].user.name
          return cell
      }
 

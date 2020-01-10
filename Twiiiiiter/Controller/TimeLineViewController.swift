@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import Lottie
 
 class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     var message = "iOSなのだ"
-    
+    let animationView = AnimationView()
     fileprivate var info: [UserInfo] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,10 +32,12 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        startAnimation()
         API.fetchUserInfo(completion: { (info) in
             self.info = info
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.stopAnimation()
             }
         })
     }
@@ -60,6 +64,20 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     @IBAction func postMessage(_ sender: Any) {
         API.postText(text: message)
+    }
+    
+    func startAnimation(){
+        let animation = Animation.named("circleLotate")
+        animationView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height/1.5)
+        animationView.animation = animation
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.play()
+        view.addSubview(animationView)
+    }
+    
+    func stopAnimation(){
+        animationView.removeFromSuperview()
     }
     /*
      // MARK: - Navigation

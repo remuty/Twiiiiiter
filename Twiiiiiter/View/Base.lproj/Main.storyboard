@@ -41,6 +41,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="woz-QE-pxU">
+                                <rect key="frame" x="0.0" y="779" width="305" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WmC-G4-W4s">
+                                <rect key="frame" x="313" y="724.5" width="82" height="87"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="paperplane.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="postMessage:" destination="9pv-A4-QxB" eventType="touchUpInside" id="8lq-Zc-Adk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -60,6 +74,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="I40-Pi-f58" id="qlS-hd-82b"/>
+                        <outlet property="textField" destination="woz-QE-pxU" id="5xB-3k-d9s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -245,6 +260,7 @@
     </scenes>
     <resources>
         <image name="house.fill" catalog="system" width="64" height="52"/>
+        <image name="paperplane.fill" catalog="system" width="64" height="60"/>
         <image name="person.2.fill" catalog="system" width="64" height="40"/>
         <image name="person.circle" catalog="system" width="64" height="60"/>
         <image name="person.circle.fill" catalog="system" width="64" height="60"/>

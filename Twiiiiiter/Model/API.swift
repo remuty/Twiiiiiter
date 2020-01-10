@@ -9,9 +9,8 @@
 import Foundation
 
 struct API {
-
+    
     static func fetchUserInfo(completion: @escaping ([UserInfo]) -> Swift.Void) {
-        
         
         let url = "https://ls123server.herokuapp.com/posts.json"
         
@@ -37,5 +36,35 @@ struct API {
             }
         }
         task.resume()
+    }
+    
+    static func postText(text: String){
+        
+        let urlString = "https://ls123server.herokuapp.com/posts"
+        
+        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let params:[String:Any] = [
+            "text": "\(text)",
+            "user_id": 1
+        ]
+        
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+            
+            let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
+                let resultData = String(data: data!, encoding: .utf8)!
+                print("result:\(resultData)")
+                print("response:\(response)")
+                
+            })
+            task.resume()
+        }catch{
+            print("Error:\(error)")
+            return
+        }
     }
 }

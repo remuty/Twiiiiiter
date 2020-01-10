@@ -20,9 +20,13 @@
 		AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589B823C0DDEA003D23A8 /* UIEdit.swift */; };
 		AAE589BB23C0E260003D23A8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BA23C0E260003D23A8 /* UserInfo.swift */; };
 		AAE589BD23C0E623003D23A8 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BC23C0E623003D23A8 /* API.swift */; };
+		CA441253ACDA8AF83F6CE3CB /* Pods_Twiiiiiter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B9B6DB2807B0E566C1B5CC /* Pods_Twiiiiiter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30F0D3200516D06ABBAA45B9 /* Pods-Twiiiiiter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twiiiiiter.release.xcconfig"; path = "Target Support Files/Pods-Twiiiiiter/Pods-Twiiiiiter.release.xcconfig"; sourceTree = "<group>"; };
+		89B9B6DB2807B0E566C1B5CC /* Pods_Twiiiiiter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twiiiiiter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		921FF741CE6782D62B1DFF75 /* Pods-Twiiiiiter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twiiiiiter.debug.xcconfig"; path = "Target Support Files/Pods-Twiiiiiter/Pods-Twiiiiiter.debug.xcconfig"; sourceTree = "<group>"; };
 		AA5350A023C0B29500560A3B /* Twiiiiiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twiiiiiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA5350A323C0B29500560A3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA5350A523C0B29500560A3B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,17 +49,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA441253ACDA8AF83F6CE3CB /* Pods_Twiiiiiter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		97D68621FA087395BF615665 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				921FF741CE6782D62B1DFF75 /* Pods-Twiiiiiter.debug.xcconfig */,
+				30F0D3200516D06ABBAA45B9 /* Pods-Twiiiiiter.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		AA53509723C0B29500560A3B = {
 			isa = PBXGroup;
 			children = (
 				AA5350A223C0B29500560A3B /* Twiiiiiter */,
 				AA5350A123C0B29500560A3B /* Products */,
+				97D68621FA087395BF615665 /* Pods */,
+				D2D6C25EA33EB1707790543F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +129,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D2D6C25EA33EB1707790543F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89B9B6DB2807B0E566C1B5CC /* Pods_Twiiiiiter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +144,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA5350B623C0B29600560A3B /* Build configuration list for PBXNativeTarget "Twiiiiiter" */;
 			buildPhases = (
+				574865030EB5497953498F4A /* [CP] Check Pods Manifest.lock */,
 				AA53509C23C0B29500560A3B /* Sources */,
 				AA53509D23C0B29500560A3B /* Frameworks */,
 				AA53509E23C0B29500560A3B /* Resources */,
+				DBB3219722AB9C5A213FF467 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,6 +205,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		574865030EB5497953498F4A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Twiiiiiter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBB3219722AB9C5A213FF467 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Twiiiiiter/Pods-Twiiiiiter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Twiiiiiter/Pods-Twiiiiiter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Twiiiiiter/Pods-Twiiiiiter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AA53509C23C0B29500560A3B /* Sources */ = {
@@ -334,6 +403,7 @@
 		};
 		AA5350B723C0B29600560A3B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 921FF741CE6782D62B1DFF75 /* Pods-Twiiiiiter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -352,6 +422,7 @@
 		};
 		AA5350B823C0B29600560A3B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30F0D3200516D06ABBAA45B9 /* Pods-Twiiiiiter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

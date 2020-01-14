@@ -67,4 +67,36 @@ struct API {
             return
         }
     }
+    
+    static func register(name: String,email: String,password: String,password_confirm: String){
+        
+        let urlString = "https://ls123server.herokuapp.com/api/auth"
+        
+        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let params:[String:Any] = [
+            "name": "\(name)",
+            "email": "\(email)",
+            "password": "\(password)",
+            "password_confirm": "\(password_confirm)"
+        ]
+        
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+            
+            let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
+                let resultData = String(data: data!, encoding: .utf8)!
+                print("result:\(resultData)")
+                print("response:\(response)")
+                
+            })
+            task.resume()
+        }catch{
+            print("Error:\(error)")
+            return
+        }
+    }
 }

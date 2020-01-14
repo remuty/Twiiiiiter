@@ -17,6 +17,8 @@
 		AA5350C123C0CA1B00560A3B /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5350C023C0CA1B00560A3B /* UserListViewController.swift */; };
 		AA952E8E23C0CF030038379D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA952E8C23C0CF030038379D /* TableViewCell.swift */; };
 		AA952E8F23C0CF030038379D /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA952E8D23C0CF030038379D /* TableViewCell.xib */; };
+		AACD9E2F23CE12F5002A4C7B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */; };
+		AACD9E3123CE133B002A4C7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E3023CE133B002A4C7B /* LoginViewController.swift */; };
 		AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589B823C0DDEA003D23A8 /* UIEdit.swift */; };
 		AAE589BB23C0E260003D23A8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BA23C0E260003D23A8 /* UserInfo.swift */; };
 		AAE589BD23C0E623003D23A8 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BC23C0E623003D23A8 /* API.swift */; };
@@ -41,6 +43,8 @@
 		AA5350C023C0CA1B00560A3B /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		AA952E8C23C0CF030038379D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		AA952E8D23C0CF030038379D /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		AACD9E3023CE133B002A4C7B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AAE589B823C0DDEA003D23A8 /* UIEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdit.swift; sourceTree = "<group>"; };
 		AAE589BA23C0E260003D23A8 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AAE589BC23C0E623003D23A8 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				AA5350BC23C0C7FC00560A3B /* TimeLineViewController.swift */,
 				AA5350BE23C0C82F00560A3B /* HomeViewController.swift */,
 				AA5350C023C0CA1B00560A3B /* UserListViewController.swift */,
+				AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */,
+				AACD9E3023CE133B002A4C7B /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -261,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */,
+				AACD9E2F23CE12F5002A4C7B /* RegisterViewController.swift in Sources */,
 				AA5350C123C0CA1B00560A3B /* UserListViewController.swift in Sources */,
 				AA5350A423C0B29500560A3B /* AppDelegate.swift in Sources */,
 				AA5350A623C0B29500560A3B /* SceneDelegate.swift in Sources */,
@@ -269,6 +276,7 @@
 				AA5350BD23C0C7FC00560A3B /* TimeLineViewController.swift in Sources */,
 				AAE589BD23C0E623003D23A8 /* API.swift in Sources */,
 				AA5350BF23C0C82F00560A3B /* HomeViewController.swift in Sources */,
+				AACD9E3123CE133B002A4C7B /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

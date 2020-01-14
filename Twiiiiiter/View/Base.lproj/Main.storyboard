@@ -413,12 +413,15 @@
                                         <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="registerAction:" destination="GJS-Sg-zwf" eventType="touchUpInside" id="DKd-ak-hco"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TjO-zI-jxB" customClass="RoundedTextField" customModule="Twiiiiiter" customModuleProvider="target">
                                 <rect key="frame" x="64" y="265" width="286" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="15"/>
@@ -435,7 +438,7 @@
                                 <rect key="frame" x="64" y="365" width="286" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="15"/>
@@ -453,6 +456,12 @@
                         <viewLayoutGuide key="safeArea" id="RtE-Il-dWv"/>
                     </view>
                     <navigationItem key="navigationItem" id="JhY-qa-thn"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="M8O-tk-4hE" id="Pc2-Yk-OAo"/>
+                        <outlet property="nameTextField" destination="yga-Sv-6Gl" id="YtU-Ds-spX"/>
+                        <outlet property="passwordConfirmTextField" destination="2dm-eb-IDZ" id="2NI-Kv-bHO"/>
+                        <outlet property="passwordTextField" destination="TjO-zI-jxB" id="UUs-OB-vVP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qpH-X2-MBX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -12,17 +12,9 @@ struct API {
     
     static func fetchPosts(completion: @escaping ([PostsInfo]) -> Swift.Void) {
         
-        let url = "https://ls123server.herokuapp.com/posts.json"
-        
-        guard var urlComponents = URLComponents(string: url) else {
-            return
-        }
-        
-        urlComponents.queryItems = [
-            URLQueryItem(name: "per_page", value: "50"),
-        ]
-        
-        let task = URLSession.shared.dataTask(with: urlComponents.url!) { data, response, error in
+        let url = URL(string: "https://ls123server.herokuapp.com/posts.json")
+        let request = URLRequest(url: url!)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard let jsonData = data else {
                 return
@@ -34,8 +26,7 @@ struct API {
             } catch {
                 print(error.localizedDescription)
             }
-        }
-        task.resume()
+        }.resume()
     }
     
     static func fetchMyInfo(id: Int,completion: @escaping ([MyInfo.Posts]) -> Swift.Void) {
@@ -59,9 +50,8 @@ struct API {
     
     static func postText(text: String){
         
-        let urlString = "https://ls123server.herokuapp.com/posts"
-        
-        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        let url = URL(string: "https://ls123server.herokuapp.com/posts")
+        let request = NSMutableURLRequest(url: url!)
         
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -77,7 +67,6 @@ struct API {
             let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
                 let resultData = String(data: data!, encoding: .utf8)!
                 print("result:\(resultData)")
-                print("response:\(response)")
                 
             })
             task.resume()
@@ -89,9 +78,8 @@ struct API {
     
     static func register(name: String,email: String,password: String,password_confirm: String){
         
-        let urlString = "https://ls123server.herokuapp.com/api/auth"
-        
-        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        let url = URL(string: "https://ls123server.herokuapp.com/api/auth")
+        let request = NSMutableURLRequest(url: url!)
         
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -120,9 +108,8 @@ struct API {
     
     static func login(email: String,password: String){
         
-        let urlString = "https://ls123server.herokuapp.com/api/auth/sign_in"
-        
-        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        let url = URL(string: "https://ls123server.herokuapp.com/api/auth/sign_in")
+        let request = NSMutableURLRequest(url: url!)
         
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

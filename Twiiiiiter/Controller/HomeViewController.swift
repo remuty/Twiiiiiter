@@ -10,14 +10,17 @@ import UIKit
 
 class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var commentArray: [String] = ["Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.","Lorem ipsum dolor sit amet, consectetur.","Ok.","Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.","Lorem ipsum dolor sit amet, consectetur."]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
         
+        userNameLabel.text = UserDefaults.standard.string(forKey: "name")
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension

@@ -145,6 +145,7 @@
                     <navigationItem key="navigationItem" id="bMc-DC-Ku7"/>
                     <connections>
                         <outlet property="tableView" destination="J2q-wn-n4v" id="gn4-HX-I25"/>
+                        <outlet property="userNameLabel" destination="Vmw-cU-cXl" id="rTb-mt-4K4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cmQ-pb-8mL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -256,7 +257,7 @@
                                 <rect key="frame" x="64" y="408" width="286" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="15"/>

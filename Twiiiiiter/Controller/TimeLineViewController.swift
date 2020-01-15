@@ -33,7 +33,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         super.viewWillAppear(animated)
         
         startAnimation()
-        API.fetchUserInfo(completion: { (info) in
+        API.fetchPosts(completion: { (info) in
             self.info = info
             DispatchQueue.main.async {
                 self.tableView.reloadData()

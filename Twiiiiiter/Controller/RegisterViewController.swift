@@ -35,7 +35,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func registerAction(_ sender: Any) {
-        API.register(name: emailTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, password_confirm: passwordConfirmTextField.text!)
+        API.register(name: nameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, password_confirm: passwordConfirmTextField.text!)
     }
     
     /*

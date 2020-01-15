@@ -10,7 +10,7 @@ import Foundation
 
 struct API {
     
-    static func fetchUserInfo(completion: @escaping ([PostsInfo]) -> Swift.Void) {
+    static func fetchPosts(completion: @escaping ([PostsInfo]) -> Swift.Void) {
         
         let url = "https://ls123server.herokuapp.com/posts.json"
         
@@ -49,7 +49,7 @@ struct API {
         
         let params:[String:Any] = [
             "text": "\(text)",
-            "user_id": 1
+            "user_id": UserDefaults.standard.integer(forKey: "id")
         ]
         
         do{

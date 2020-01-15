@@ -19,6 +19,7 @@
 		AA952E8F23C0CF030038379D /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA952E8D23C0CF030038379D /* TableViewCell.xib */; };
 		AACD9E2F23CE12F5002A4C7B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */; };
 		AACD9E3123CE133B002A4C7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E3023CE133B002A4C7B /* LoginViewController.swift */; };
+		AADC16B523CECC6A008A7B3A /* PostsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC16B423CECC6A008A7B3A /* PostsInfo.swift */; };
 		AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589B823C0DDEA003D23A8 /* UIEdit.swift */; };
 		AAE589BB23C0E260003D23A8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BA23C0E260003D23A8 /* UserInfo.swift */; };
 		AAE589BD23C0E623003D23A8 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BC23C0E623003D23A8 /* API.swift */; };
@@ -45,6 +46,7 @@
 		AA952E8D23C0CF030038379D /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		AACD9E3023CE133B002A4C7B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AADC16B423CECC6A008A7B3A /* PostsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsInfo.swift; sourceTree = "<group>"; };
 		AAE589B823C0DDEA003D23A8 /* UIEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdit.swift; sourceTree = "<group>"; };
 		AAE589BA23C0E260003D23A8 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AAE589BC23C0E623003D23A8 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				AAE589B823C0DDEA003D23A8 /* UIEdit.swift */,
 				AAE589BA23C0E260003D23A8 /* UserInfo.swift */,
 				AAE589BC23C0E623003D23A8 /* API.swift */,
+				AADC16B423CECC6A008A7B3A /* PostsInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				AA5350A623C0B29500560A3B /* SceneDelegate.swift in Sources */,
 				AAE589BB23C0E260003D23A8 /* UserInfo.swift in Sources */,
 				AA952E8E23C0CF030038379D /* TableViewCell.swift in Sources */,
+				AADC16B523CECC6A008A7B3A /* PostsInfo.swift in Sources */,
 				AA5350BD23C0C7FC00560A3B /* TimeLineViewController.swift in Sources */,
 				AAE589BD23C0E623003D23A8 /* API.swift in Sources */,
 				AA5350BF23C0C82F00560A3B /* HomeViewController.swift in Sources */,

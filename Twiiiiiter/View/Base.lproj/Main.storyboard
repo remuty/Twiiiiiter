@@ -222,7 +222,7 @@
         <!--Login View Controller-->
         <scene sceneID="0HM-AP-Cxi">
             <objects>
-                <viewController id="LYo-h4-GAZ" customClass="LoginViewController" customModule="Twiiiiiter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="LYo-h4-GAZ" customClass="LoginViewController" customModule="Twiiiiiter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JMu-3O-vQz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -282,6 +282,9 @@
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginAction:" destination="LYo-h4-GAZ" eventType="touchUpInside" id="JDw-CF-cG9"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4d-GZ-Ehx" customClass="RoundedButton" customModule="Twiiiiiter" customModuleProvider="target">
                                 <rect key="frame" x="64" y="657" width="286" height="52"/>
@@ -317,10 +320,15 @@
                         <viewLayoutGuide key="safeArea" id="Tlw-ha-ROK"/>
                     </view>
                     <navigationItem key="navigationItem" id="uRZ-e6-o50"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="Lzn-lH-f0R" id="t0y-Ad-tmE"/>
+                        <outlet property="passwordTextField" destination="8wn-mF-yOZ" id="Iy9-mk-lUs"/>
+                        <segue destination="49e-Tb-3d3" kind="presentation" identifier="login" modalPresentationStyle="fullScreen" id="BGd-2L-mWb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sB9-3G-Mox" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657.9710144927537" y="-993.08035714285711"/>
+            <point key="canvasLocation" x="0.0" y="-993"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9bX-M5-KmH">
@@ -472,7 +480,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qpH-X2-MBX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2412" y="-993"/>
+            <point key="canvasLocation" x="749" y="-993"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tyY-hd-aoh">
@@ -490,7 +498,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVo-0E-DtC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="747.82608695652175" y="-993.08035714285711"/>
+            <point key="canvasLocation" x="-777" y="-993"/>
         </scene>
     </scenes>
     <resources>

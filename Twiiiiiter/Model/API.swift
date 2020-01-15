@@ -10,7 +10,7 @@ import Foundation
 
 struct API {
     
-    static func fetchUserInfo(completion: @escaping ([UserInfo]) -> Swift.Void) {
+    static func fetchUserInfo(completion: @escaping ([PostsInfo]) -> Swift.Void) {
         
         let url = "https://ls123server.herokuapp.com/posts.json"
         
@@ -29,7 +29,7 @@ struct API {
             }
             
             do {
-                let info = try JSONDecoder().decode([UserInfo].self, from: jsonData)
+                let info = try JSONDecoder().decode([PostsInfo].self, from: jsonData)
                 completion(info)
             } catch {
                 print(error.localizedDescription)
@@ -90,8 +90,49 @@ struct API {
             let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
                 let resultData = String(data: data!, encoding: .utf8)!
                 print("result:\(resultData)")
-                print("response:\(response)")
                 
+            })
+            task.resume()
+        }catch{
+            print("Error:\(error)")
+            return
+        }
+    }
+    
+    static func login(email: String,password: String){
+        
+        let urlString = "https://ls123server.herokuapp.com/api/auth/sign_in"
+        
+        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let params:[String:Any] = [
+            "email": "\(email)",
+            "password": "\(password)"
+        ]
+        
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+            
+            let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
+                let resultData = String(data: data!, encoding: .utf8)!
+                print("result:\(resultData)")
+                
+                guard let jsonData = data else {
+                    return
+                }
+                
+                do {
+                    let info = try JSONDecoder().decode(UserInfo.self, from: jsonData)
+                    print("id=\(info.data.id)")
+                    //ユーザー情報を端末に登録
+                    UserDefaults.standard.set(info.data.id,forKey: "id")
+                    UserDefaults.standard.set(info.data.name,forKey: "name")
+                } catch {
+                    print(error.localizedDescription)
+                }
             })
             task.resume()
         }catch{

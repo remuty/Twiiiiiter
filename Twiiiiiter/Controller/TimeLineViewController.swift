@@ -15,7 +15,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     @IBOutlet weak var textField: UITextField!
     var message = "iOSなのだ"
     let animationView = AnimationView()
-    fileprivate var info: [UserInfo] = []
+    fileprivate var info: [PostsInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

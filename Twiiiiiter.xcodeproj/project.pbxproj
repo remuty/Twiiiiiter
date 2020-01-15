@@ -20,6 +20,7 @@
 		AACD9E2F23CE12F5002A4C7B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */; };
 		AACD9E3123CE133B002A4C7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E3023CE133B002A4C7B /* LoginViewController.swift */; };
 		AADC16B523CECC6A008A7B3A /* PostsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC16B423CECC6A008A7B3A /* PostsInfo.swift */; };
+		AADC16B723CF0481008A7B3A /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC16B623CF0481008A7B3A /* MyInfo.swift */; };
 		AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589B823C0DDEA003D23A8 /* UIEdit.swift */; };
 		AAE589BB23C0E260003D23A8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BA23C0E260003D23A8 /* UserInfo.swift */; };
 		AAE589BD23C0E623003D23A8 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BC23C0E623003D23A8 /* API.swift */; };
@@ -47,6 +48,7 @@
 		AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		AACD9E3023CE133B002A4C7B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AADC16B423CECC6A008A7B3A /* PostsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsInfo.swift; sourceTree = "<group>"; };
+		AADC16B623CF0481008A7B3A /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
 		AAE589B823C0DDEA003D23A8 /* UIEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdit.swift; sourceTree = "<group>"; };
 		AAE589BA23C0E260003D23A8 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AAE589BC23C0E623003D23A8 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				AAE589BA23C0E260003D23A8 /* UserInfo.swift */,
 				AAE589BC23C0E623003D23A8 /* API.swift */,
 				AADC16B423CECC6A008A7B3A /* PostsInfo.swift */,
+				AADC16B623CF0481008A7B3A /* MyInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */,
+				AADC16B723CF0481008A7B3A /* MyInfo.swift in Sources */,
 				AACD9E2F23CE12F5002A4C7B /* RegisterViewController.swift in Sources */,
 				AA5350C123C0CA1B00560A3B /* UserListViewController.swift in Sources */,
 				AA5350A423C0B29500560A3B /* AppDelegate.swift in Sources */,

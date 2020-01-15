@@ -19,9 +19,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         //ログイン情報があるならログイン画面を飛ばす
-        //        if UserDefaults.standard.object(forKey: "id") != nil{
-        //            self.performSegue(withIdentifier: "login", sender: nil)
-        //        }
+        if UserDefaults.standard.object(forKey: "id") != nil{
+            self.performSegue(withIdentifier: "login", sender: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

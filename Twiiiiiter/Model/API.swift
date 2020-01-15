@@ -38,6 +38,25 @@ struct API {
         task.resume()
     }
     
+    static func fetchMyInfo(id: Int,completion: @escaping ([MyInfo.Posts]) -> Swift.Void) {
+        
+        let url = URL(string: "https://ls123server.herokuapp.com/users/\(id)")
+        let request = URLRequest(url: url!)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let jsonData = data else {
+                return
+            }
+            
+            do {
+                let info = try JSONDecoder().decode(MyInfo.self, from: jsonData)
+                completion(info.posts)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }.resume()
+    }
+    
     static func postText(text: String){
         
         let urlString = "https://ls123server.herokuapp.com/posts"

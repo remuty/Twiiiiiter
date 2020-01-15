@@ -49,8 +49,9 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
-        cell.commentLabel.text = info[indexPath.row].text
-        cell.userNameLabel.text = info[indexPath.row].user.name
+        let idx = info.count - indexPath.row - 1
+        cell.commentLabel.text = info[idx].text
+        cell.userNameLabel.text = info[idx].user.name
         return cell
     }
     

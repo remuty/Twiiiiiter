@@ -47,7 +47,8 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
-        cell.commentLabel.text = posts[indexPath.row].text
+        let idx = posts.count - indexPath.row - 1
+        cell.commentLabel.text = posts[idx].text
         cell.userNameLabel.text = name
         return cell
     }

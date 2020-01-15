@@ -165,4 +165,62 @@ struct API {
             return
         }
     }
+    
+    static func follow(followedId: Int,isFollow: Bool){
+        
+        var urlSting = ""
+        //フォロー済みなら解除
+        if isFollow{
+            urlSting = "delete"
+        }
+        let myId = UserDefaults.standard.integer(forKey: "id")
+        let url = URL(string: "https://ls123server.herokuapp.com/relationships/\(urlSting)")
+        let request = NSMutableURLRequest(url: url!)
+        
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let params:[String:Any] = [
+            "follower_id": "\(myId)",
+            "followed_id": "\(followedId)"
+        ]
+        
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+            
+            let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
+                let resultData = String(data: data!, encoding: .utf8)!
+                print("result:\(resultData)")
+                
+            })
+            task.resume()
+        }catch{
+            print("Error:\(error)")
+            return
+        }
+    }
+    
+    static func fetchRelationship(completion: @escaping([Int]) -> Swift.Void) {
+        
+        let id = UserDefaults.standard.integer(forKey: "id")
+        let url = URL(string: "https://ls123server.herokuapp.com/users/\(id)/following")
+        let request = URLRequest(url: url!)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let jsonData = data else {
+                return
+            }
+            
+            do {
+                let info = try JSONDecoder().decode([UserInfo.Data].self, from: jsonData)
+                var idArray: [Int] = []
+                for data in info{
+                    idArray.append(data.id)
+                }
+                completion(idArray)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }.resume()
+    }
 }

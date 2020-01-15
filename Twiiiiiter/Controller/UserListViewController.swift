@@ -14,6 +14,8 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     let animationView = AnimationView()
     fileprivate var users: [UserInfo.Data] = []
+    var relationship: [Int] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +52,18 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     @objc func follow(_ sender: UIButton) {
-        print(sender.tag)
+        var isFollow = false
+        //フォローしているか確認
+        API.fetchRelationship(completion: { (idArray) in
+            self.relationship = idArray
+        })
+        for data in relationship {
+            if sender.tag == data {
+                isFollow = true
+            }
+        }
+        //フォローorフォロー解除
+        API.follow(followedId: sender.tag, isFollow: isFollow)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

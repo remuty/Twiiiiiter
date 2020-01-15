@@ -9,19 +9,52 @@
 import UIKit
 import Lottie
 
-class UserListViewController: UIViewController {
+class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var tableView: UITableView!
     let animationView = AnimationView()
-    
+    fileprivate var users: [UserInfo.Data] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         startAnimation()
+        API.fetchUserInfo(completion: { (info) in
+            self.users = info
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.stopAnimation()
+            }
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //記事の数
+        return users.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userListCell",for: indexPath) as! UserListCell
+        cell.userNameLabel.text = users[indexPath.row].name
+        //タグを設定
+        cell.button.tag = users[indexPath.row].id
+        //ボタンの処理
+        cell.button.addTarget(self, action: #selector(follow(_:)), for: .touchUpInside)
+        return cell
+    }
+    
+    @objc func follow(_ sender: UIButton) {
+        print(sender.tag)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
     
     func startAnimation(){
@@ -32,6 +65,10 @@ class UserListViewController: UIViewController {
         animationView.loopMode = .loop
         animationView.play()
         view.addSubview(animationView)
+    }
+    
+    func stopAnimation(){
+        animationView.removeFromSuperview()
     }
     /*
      // MARK: - Navigation

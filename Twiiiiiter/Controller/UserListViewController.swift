@@ -21,15 +21,15 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
+        API.fetchRelationship(completion: { (idArray) in
+            self.following = idArray
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         startAnimation()
-        API.fetchRelationship(completion: { (idArray) in
-            self.following = idArray
-        })
         API.fetchUserInfo(completion: { (info) in
             self.users = info
             DispatchQueue.main.async {

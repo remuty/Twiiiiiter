@@ -13,8 +13,10 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
+    
     var message = "iOSなのだ"
     let animationView = AnimationView()
+    let screenSize = UIScreen.main.bounds.size
     fileprivate var posts: [PostsInfo] = []
     var following: [Int] = []
     
@@ -28,6 +30,26 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+        
+        //キーボード
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification:NSNotification){
+        let keyboardHeight = ((notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as Any) as AnyObject).cgRectValue.height
+        textField.frame.origin.y = screenSize.height - keyboardHeight - textField.frame.height
+    }
+    
+    @objc func keyboardWillHide(_ notification:NSNotification){
+        textField.frame.origin.y = 780
+        guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else{return}
+        UIView.animate(withDuration: duration){
+            let transform = CGAffineTransform(translationX: 0, y: 0)
+            self.view.transform = transform
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

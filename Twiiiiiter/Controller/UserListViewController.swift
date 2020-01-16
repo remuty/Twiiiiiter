@@ -49,6 +49,7 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         cell.userNameLabel.text = users[indexPath.row].name
         //タグを設定
         cell.button.tag = users[indexPath.row].id
+        //フォロー中なら選択状態に
         for data in self.following {
             if cell.button.tag == data {
                 cell.button.isSelected = true

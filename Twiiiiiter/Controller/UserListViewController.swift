@@ -27,6 +27,9 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         super.viewWillAppear(animated)
         
         startAnimation()
+        API.fetchRelationship(completion: { (idArray) in
+            self.relationship = idArray
+        })
         API.fetchUserInfo(completion: { (info) in
             self.users = info
             DispatchQueue.main.async {
@@ -46,6 +49,12 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         cell.userNameLabel.text = users[indexPath.row].name
         //タグを設定
         cell.button.tag = users[indexPath.row].id
+        for data in self.relationship {
+            if cell.button.tag == data {
+                cell.button.isSelected = true
+                cell.button.backgroundColor = .white
+            }
+        }
         //ボタンの処理
         cell.button.addTarget(self, action: #selector(follow(_:)), for: .touchUpInside)
         return cell
@@ -53,6 +62,8 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     @objc func follow(_ sender: UIButton) {
         var isFollow = false
+        sender.isSelected = true
+        sender.backgroundColor = .white
         //フォローしているか確認
         API.fetchRelationship(completion: { (idArray) in
             self.relationship = idArray
@@ -60,6 +71,8 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         for data in relationship {
             if sender.tag == data {
                 isFollow = true
+                sender.isSelected = false
+                sender.backgroundColor = UIColor(red: 64/255, green: 153/255, blue: 247/255, alpha: 1)
             }
         }
         //フォローorフォロー解除

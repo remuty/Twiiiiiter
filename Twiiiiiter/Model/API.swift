@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct API {
+class API {
     
     static func fetchPosts(completion: @escaping ([PostsInfo]) -> Swift.Void) {
         
@@ -217,6 +217,7 @@ struct API {
                 for data in info{
                     idArray.append(data.id)
                 }
+                print("info:\(idArray)")
                 completion(idArray)
             } catch {
                 print(error.localizedDescription)

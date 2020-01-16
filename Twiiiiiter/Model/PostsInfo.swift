@@ -10,6 +10,7 @@ import Foundation
 struct PostsInfo: Codable {
     var id: Int
     var text: String
+    var user_id: Int
     var user: User
     struct User: Codable {
         var name: String

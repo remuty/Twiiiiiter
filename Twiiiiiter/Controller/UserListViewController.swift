@@ -14,7 +14,7 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     let animationView = AnimationView()
     fileprivate var users: [UserInfo.Data] = []
-    var relationship: [Int] = []
+    var following: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
         startAnimation()
         API.fetchRelationship(completion: { (idArray) in
-            self.relationship = idArray
+            self.following = idArray
         })
         API.fetchUserInfo(completion: { (info) in
             self.users = info
@@ -49,7 +49,7 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         cell.userNameLabel.text = users[indexPath.row].name
         //タグを設定
         cell.button.tag = users[indexPath.row].id
-        for data in self.relationship {
+        for data in self.following {
             if cell.button.tag == data {
                 cell.button.isSelected = true
                 cell.button.backgroundColor = .white
@@ -66,9 +66,9 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         sender.backgroundColor = .white
         //フォローしているか確認
         API.fetchRelationship(completion: { (idArray) in
-            self.relationship = idArray
+            self.following = idArray
         })
-        for data in relationship {
+        for data in following {
             if sender.tag == data {
                 isFollow = true
                 sender.isSelected = false

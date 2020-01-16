@@ -15,7 +15,8 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     @IBOutlet weak var textField: UITextField!
     var message = "iOSなのだ"
     let animationView = AnimationView()
-    fileprivate var info: [PostsInfo] = []
+    fileprivate var posts: [PostsInfo] = []
+    var following: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +34,11 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         super.viewWillAppear(animated)
         
         startAnimation()
-        API.fetchPosts(completion: { (info) in
-            self.info = info
+        API.fetchRelationship(completion: { (idArray) in
+            self.following = idArray
+        })
+        API.fetchPosts(following: following,completion: { (posts) in
+            self.posts = posts
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.stopAnimation()
@@ -44,14 +48,14 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //記事の数
-        return info.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
-        let idx = info.count - indexPath.row - 1
-        cell.commentLabel.text = info[idx].text
-        cell.userNameLabel.text = info[idx].user.name
+        let idx = posts.count - indexPath.row - 1
+        cell.commentLabel.text = posts[idx].text
+        cell.userNameLabel.text = posts[idx].user.name
         return cell
     }
     

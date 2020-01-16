@@ -10,9 +10,9 @@ import Foundation
 
 class API {
     
-    static func fetchPosts(completion: @escaping ([PostsInfo]) -> Swift.Void) {
+    static func fetchPosts(following: [Int],completion: @escaping ([PostsInfo]) -> Swift.Void) {
         
-        let url = URL(string: "https://ls123server.herokuapp.com/posts.json")
+        let url = URL(string: "https://ls123server.herokuapp.com/posts")
         let request = URLRequest(url: url!)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -22,7 +22,16 @@ class API {
             
             do {
                 let info = try JSONDecoder().decode([PostsInfo].self, from: jsonData)
-                completion(info)
+                var posts:[PostsInfo] = []
+                //フォロー中のユーザーの投稿を抽出
+                for i in 0..<info.count {
+                    for data in following{
+                        if info[i].user_id == data {
+                            posts.append(info[i])
+                        }
+                    }
+                }
+                completion(posts)
             } catch {
                 print(error.localizedDescription)
             }
@@ -84,8 +93,8 @@ class API {
             request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             
             let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
-                let resultData = String(data: data!, encoding: .utf8)!
-                print("result:\(resultData)")
+                //                let resultData = String(data: data!, encoding: .utf8)!
+                //                print("result:\(resultData)")
                 
             })
             task.resume()
@@ -114,8 +123,8 @@ class API {
             request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             
             let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
-                let resultData = String(data: data!, encoding: .utf8)!
-                print("result:\(resultData)")
+                //                let resultData = String(data: data!, encoding: .utf8)!
+                //                print("result:\(resultData)")
                 
             })
             task.resume()
@@ -142,8 +151,8 @@ class API {
             request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             
             let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
-                let resultData = String(data: data!, encoding: .utf8)!
-                print("result:\(resultData)")
+                //                let resultData = String(data: data!, encoding: .utf8)!
+                //                print("result:\(resultData)")
                 
                 guard let jsonData = data else {
                     return
@@ -189,8 +198,8 @@ class API {
             request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             
             let task:URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data,response,error) -> Void in
-                let resultData = String(data: data!, encoding: .utf8)!
-                print("result:\(resultData)")
+                //                let resultData = String(data: data!, encoding: .utf8)!
+                //                print("result:\(resultData)")
                 
             })
             task.resume()
@@ -217,7 +226,6 @@ class API {
                 for data in info{
                     idArray.append(data.id)
                 }
-                print("info:\(idArray)")
                 completion(idArray)
             } catch {
                 print(error.localizedDescription)

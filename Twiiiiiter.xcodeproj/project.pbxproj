@@ -17,11 +17,16 @@
 		AA5350C123C0CA1B00560A3B /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5350C023C0CA1B00560A3B /* UserListViewController.swift */; };
 		AA952E8E23C0CF030038379D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA952E8C23C0CF030038379D /* TableViewCell.swift */; };
 		AA952E8F23C0CF030038379D /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA952E8D23C0CF030038379D /* TableViewCell.xib */; };
+		AACD9E2F23CE12F5002A4C7B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */; };
+		AACD9E3123CE133B002A4C7B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD9E3023CE133B002A4C7B /* LoginViewController.swift */; };
+		AADC16B523CECC6A008A7B3A /* PostsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC16B423CECC6A008A7B3A /* PostsInfo.swift */; };
+		AADC16B723CF0481008A7B3A /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC16B623CF0481008A7B3A /* MyInfo.swift */; };
 		AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589B823C0DDEA003D23A8 /* UIEdit.swift */; };
 		AAE589BB23C0E260003D23A8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BA23C0E260003D23A8 /* UserInfo.swift */; };
 		AAE589BD23C0E623003D23A8 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE589BC23C0E623003D23A8 /* API.swift */; };
 		AAE8ACDF23C8CA3A00111827 /* circleScale.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE8ACDD23C8CA3900111827 /* circleScale.json */; };
 		AAE8ACE023C8CA3A00111827 /* circleLotate.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE8ACDE23C8CA3A00111827 /* circleLotate.json */; };
+		AAEC005B23CF661B0075875B /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC005A23CF661B0075875B /* UserListCell.swift */; };
 		CA441253ACDA8AF83F6CE3CB /* Pods_Twiiiiiter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B9B6DB2807B0E566C1B5CC /* Pods_Twiiiiiter.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,11 +46,16 @@
 		AA5350C023C0CA1B00560A3B /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		AA952E8C23C0CF030038379D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		AA952E8D23C0CF030038379D /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		AACD9E3023CE133B002A4C7B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AADC16B423CECC6A008A7B3A /* PostsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsInfo.swift; sourceTree = "<group>"; };
+		AADC16B623CF0481008A7B3A /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
 		AAE589B823C0DDEA003D23A8 /* UIEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdit.swift; sourceTree = "<group>"; };
 		AAE589BA23C0E260003D23A8 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AAE589BC23C0E623003D23A8 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AAE8ACDD23C8CA3900111827 /* circleScale.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = circleScale.json; sourceTree = "<group>"; };
 		AAE8ACDE23C8CA3A00111827 /* circleLotate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = circleLotate.json; sourceTree = "<group>"; };
+		AAEC005A23CF661B0075875B /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +119,8 @@
 				AA5350BC23C0C7FC00560A3B /* TimeLineViewController.swift */,
 				AA5350BE23C0C82F00560A3B /* HomeViewController.swift */,
 				AA5350C023C0CA1B00560A3B /* UserListViewController.swift */,
+				AACD9E2E23CE12F5002A4C7B /* RegisterViewController.swift */,
+				AACD9E3023CE133B002A4C7B /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -120,6 +132,7 @@
 				AA5350AE23C0B29600560A3B /* Assets.xcassets */,
 				AA952E8C23C0CF030038379D /* TableViewCell.swift */,
 				AA952E8D23C0CF030038379D /* TableViewCell.xib */,
+				AAEC005A23CF661B0075875B /* UserListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -130,6 +143,8 @@
 				AAE589B823C0DDEA003D23A8 /* UIEdit.swift */,
 				AAE589BA23C0E260003D23A8 /* UserInfo.swift */,
 				AAE589BC23C0E623003D23A8 /* API.swift */,
+				AADC16B423CECC6A008A7B3A /* PostsInfo.swift */,
+				AADC16B623CF0481008A7B3A /* MyInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -260,15 +275,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAEC005B23CF661B0075875B /* UserListCell.swift in Sources */,
 				AAE589B923C0DDEA003D23A8 /* UIEdit.swift in Sources */,
+				AADC16B723CF0481008A7B3A /* MyInfo.swift in Sources */,
+				AACD9E2F23CE12F5002A4C7B /* RegisterViewController.swift in Sources */,
 				AA5350C123C0CA1B00560A3B /* UserListViewController.swift in Sources */,
 				AA5350A423C0B29500560A3B /* AppDelegate.swift in Sources */,
 				AA5350A623C0B29500560A3B /* SceneDelegate.swift in Sources */,
 				AAE589BB23C0E260003D23A8 /* UserInfo.swift in Sources */,
 				AA952E8E23C0CF030038379D /* TableViewCell.swift in Sources */,
+				AADC16B523CECC6A008A7B3A /* PostsInfo.swift in Sources */,
 				AA5350BD23C0C7FC00560A3B /* TimeLineViewController.swift in Sources */,
 				AAE589BD23C0E623003D23A8 /* API.swift in Sources */,
 				AA5350BF23C0C82F00560A3B /* HomeViewController.swift in Sources */,
+				AACD9E3123CE133B002A4C7B /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

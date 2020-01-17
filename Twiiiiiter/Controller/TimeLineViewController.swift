@@ -13,9 +13,12 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
+    
     var message = "iOSなのだ"
     let animationView = AnimationView()
-    fileprivate var info: [UserInfo] = []
+    let screenSize = UIScreen.main.bounds.size
+    fileprivate var posts: [PostsInfo] = []
+    var following: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,14 +30,37 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+        
+        //キーボード
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification:NSNotification){
+        let keyboardHeight = ((notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as Any) as AnyObject).cgRectValue.height
+        textField.frame.origin.y = screenSize.height - keyboardHeight - textField.frame.height
+    }
+    
+    @objc func keyboardWillHide(_ notification:NSNotification){
+        textField.frame.origin.y = 780
+        guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else{return}
+        UIView.animate(withDuration: duration){
+            let transform = CGAffineTransform(translationX: 0, y: 0)
+            self.view.transform = transform
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         startAnimation()
-        API.fetchUserInfo(completion: { (info) in
-            self.info = info
+        API.fetchRelationship(completion: { (idArray) in
+            self.following = idArray
+        })
+        API.fetchPosts(following: following,completion: { (posts) in
+            self.posts = posts
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.stopAnimation()
@@ -44,13 +70,14 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //記事の数
-        return info.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
-        cell.commentLabel.text = info[indexPath.row].text
-        cell.userNameLabel.text = info[indexPath.row].user.name
+        let idx = posts.count - indexPath.row - 1
+        cell.commentLabel.text = posts[idx].text
+        cell.userNameLabel.text = posts[idx].user.name
         return cell
     }
     

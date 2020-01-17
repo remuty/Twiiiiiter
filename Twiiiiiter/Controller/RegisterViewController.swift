@@ -36,6 +36,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func registerAction(_ sender: Any) {
         API.register(name: nameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, password_confirm: passwordConfirmTextField.text!)
+        self.navigationController?.popViewController(animated: true)
     }
     
     /*

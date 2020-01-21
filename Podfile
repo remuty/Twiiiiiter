@@ -8,5 +8,6 @@ target 'Twiiiiiter' do
   # Pods for Twiiiiiter
 
 pod 'lottie-ios'
+pod "ActionCableClient", :git => 'https://github.com/TheMenu/Swift-ActionCableClient.git', :tag => 'v0.2.5'
 
 end

@@ -15,11 +15,12 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     
-    var message = "iOSなのだ"
     let animationView = AnimationView()
     let screenSize = UIScreen.main.bounds.size
+    var message = ""
     fileprivate var posts: [PostsInfo] = []
     var following: [Int] = []
+    
     var client: ActionCableClient!
     var roomChannel: Channel?
     
@@ -34,8 +35,11 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
         
+        startAnimation()
+        fetch()
+        
+        //Rails ActionCableと繋ぐ
         self.client = ActionCableClient(url: URL(string: "wss://ls123server.herokuapp.com/cable")!)
-        // Connect!
         client.connect()
         
         client.onConnected = {
@@ -44,14 +48,8 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
             if let roomChannel = self.roomChannel {
                 roomChannel.onReceive = { (JSON : Any?, error : Error?) in
                     // 新しい投稿があると再読み込み
-                    if let json = JSON {
-                        API.fetchPosts(following: self.following,completion: { (posts) in
-                            self.posts = posts
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                                self.stopAnimation()
-                            }
-                        })
+                    if JSON != nil {
+                        self.fetch()
                     }
                     if let error = error {
                         print("Received: ", error)
@@ -75,50 +73,24 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
             print("Disconnected!")
         }
         
-        
-        //キーボード
+        //キーボードに合わせてtextField位置調整
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    @objc func keyboardWillShow(_ notification:NSNotification){
-        let keyboardHeight = ((notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as Any) as AnyObject).cgRectValue.height
-        textField.frame.origin.y = screenSize.height - keyboardHeight - textField.frame.height
-    }
-    
-    @objc func keyboardWillHide(_ notification:NSNotification){
-        textField.frame.origin.y = 780
-        guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
-            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else{return}
-        UIView.animate(withDuration: duration){
-            let transform = CGAffineTransform(translationX: 0, y: 0)
-            self.view.transform = transform
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        startAnimation()
-        API.fetchRelationship(completion: { (idArray) in
-            self.following = idArray
-        })
-        API.fetchPosts(following: following,completion: { (posts) in
-            self.posts = posts
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.stopAnimation()
-            }
-        })
+        fetch()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //記事の数
+        //投稿の数
         return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //セルの内容
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
         let idx = posts.count - indexPath.row - 1
         cell.commentLabel.text = posts[idx].text
@@ -150,6 +122,39 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     func stopAnimation(){
         animationView.removeFromSuperview()
+    }
+    
+    @objc func keyboardWillShow(_ notification:NSNotification){
+        let keyboardHeight = ((notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as Any) as AnyObject).cgRectValue.height
+        textField.frame.origin.y = screenSize.height - keyboardHeight - textField.frame.height
+    }
+    
+    @objc func keyboardWillHide(_ notification:NSNotification){
+        textField.frame.origin.y = 780
+        guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else{return}
+        UIView.animate(withDuration: duration){
+            let transform = CGAffineTransform(translationX: 0, y: 0)
+            self.view.transform = transform
+        }
+    }
+    
+    func fetch(){
+        API.fetchRelationship(completion: { (idArray) in
+            self.following = idArray
+        })
+        API.fetchPosts(following: following,completion: { (posts) in
+            self.posts = posts
+            //データを取得できるまで繰り返す
+            if self.posts.count != 0{
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.stopAnimation()
+                }
+            }else{
+                self.fetch()
+            }
+        })
     }
     /*
      // MARK: - Navigation

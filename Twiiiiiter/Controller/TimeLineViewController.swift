@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import ActionCableClient
 
 class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
     
@@ -19,6 +20,8 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     let screenSize = UIScreen.main.bounds.size
     fileprivate var posts: [PostsInfo] = []
     var following: [Int] = []
+    var client: ActionCableClient!
+    var roomChannel: Channel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,48 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+        
+        self.client = ActionCableClient(url: URL(string: "wss://ls123server.herokuapp.com/cable")!)
+        // Connect!
+        client.connect()
+        
+        client.onConnected = {
+            print("Connected!")
+            self.roomChannel = self.client.create("ChatRoomChannel")
+            if let roomChannel = self.roomChannel {
+                roomChannel.onReceive = { (JSON : Any?, error : Error?) in
+                    // 新しい投稿があると再読み込み
+                    if let json = JSON {
+                        API.fetchPosts(following: self.following,completion: { (posts) in
+                            self.posts = posts
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                                self.stopAnimation()
+                            }
+                        })
+                    }
+                    if let error = error {
+                        print("Received: ", error)
+                    }
+                }
+                
+                roomChannel.onSubscribed = {
+                    print("Subscribed")
+                }
+                
+                roomChannel.onUnsubscribed = {
+                    print("Unsubscribed")
+                }
+                
+                roomChannel.onRejected = {
+                    print("Rejected")
+                }
+            }
+        }
+        client.onDisconnected = {(error: Error?) in
+            print("Disconnected!")
+        }
+        
         
         //キーボード
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)

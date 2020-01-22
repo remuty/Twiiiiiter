@@ -57,11 +57,11 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
         }
         //ボタンの処理
-        cell.button.addTarget(self, action: #selector(follow(_:)), for: .touchUpInside)
+        cell.button.addTarget(self, action: #selector(followButton(_:)), for: .touchUpInside)
         return cell
     }
     
-    @objc func follow(_ sender: UIButton) {
+    @objc func followButton(_ sender: UIButton) {
         var isFollow = false
         sender.isSelected = true
         sender.backgroundColor = .white

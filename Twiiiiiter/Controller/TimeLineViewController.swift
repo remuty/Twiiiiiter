@@ -36,7 +36,10 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.rowHeight = UITableView.automaticDimension
         
         startAnimation()
-        fetch()
+        API.fetchRelationship(completion: { (idArray) in
+            self.following = idArray
+            self.fetch()
+        })
         
         //Rails ActionCableと繋ぐ
         self.client = ActionCableClient(url: URL(string: "wss://ls123server.herokuapp.com/cable")!)
@@ -81,7 +84,15 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetch()
+        
+        //フォローが変更されたらチャットを再取得
+        API.fetchRelationship(completion: { (idArray) in
+            let saveFollowing = self.following
+            self.following = idArray
+            if saveFollowing != self.following {
+                self.fetch()
+            }
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,20 +121,6 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         API.postText(text: message)
     }
     
-    func startAnimation(){
-        let animation = Animation.named("circleLotate")
-        animationView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height/1.5)
-        animationView.animation = animation
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .loop
-        animationView.play()
-        view.addSubview(animationView)
-    }
-    
-    func stopAnimation(){
-        animationView.removeFromSuperview()
-    }
-    
     @objc func keyboardWillShow(_ notification:NSNotification){
         let keyboardHeight = ((notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as Any) as AnyObject).cgRectValue.height
         textField.frame.origin.y = screenSize.height - keyboardHeight - textField.frame.height
@@ -139,20 +136,26 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         }
     }
     
-    func fetch(){
-        API.fetchRelationship(completion: { (idArray) in
-            self.following = idArray
-        })
-        API.fetchChats(following: following,completion: { (chats) in
+    func startAnimation(){
+        let animation = Animation.named("circleLotate")
+        animationView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height/1.5)
+        animationView.animation = animation
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.play()
+        view.addSubview(animationView)
+    }
+    
+    func stopAnimation(){
+        animationView.removeFromSuperview()
+    }
+    
+    func fetch() {
+        API.fetchChats(following: self.following,completion: { (chats) in
             self.chats = chats
-            //データを取得できるまで繰り返す
-            if self.chats.count != 0{
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.stopAnimation()
-                }
-            }else{
-                self.fetch()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.stopAnimation()
             }
         })
     }

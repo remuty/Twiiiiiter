@@ -18,7 +18,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     let animationView = AnimationView()
     let screenSize = UIScreen.main.bounds.size
     var message = ""
-    fileprivate var posts: [PostsInfo] = []
+    fileprivate var chats: [ChatsInfo] = []
     var following: [Int] = []
     
     var client: ActionCableClient!
@@ -86,15 +86,15 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //投稿の数
-        return posts.count
+        return chats.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //セルの内容
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
-        let idx = posts.count - indexPath.row - 1
-        cell.commentLabel.text = posts[idx].text
-        cell.userNameLabel.text = posts[idx].user.name
+        let idx = chats.count - indexPath.row - 1
+        cell.commentLabel.text = chats[idx].text
+        cell.userNameLabel.text = chats[idx].user.name
         return cell
     }
     
@@ -143,10 +143,10 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         API.fetchRelationship(completion: { (idArray) in
             self.following = idArray
         })
-        API.fetchPosts(following: following,completion: { (posts) in
-            self.posts = posts
+        API.fetchChats(following: following,completion: { (chats) in
+            self.chats = chats
             //データを取得できるまで繰り返す
-            if self.posts.count != 0{
+            if self.chats.count != 0{
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.stopAnimation()

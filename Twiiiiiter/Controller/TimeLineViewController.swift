@@ -110,15 +110,16 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text != ""{
-            message = textField.text!
-        }
         textField.resignFirstResponder()
         return true
     }
     
     @IBAction func postMessage(_ sender: Any) {
-        API.postText(text: message)
+        if textField.text != ""{
+            message = textField.text!
+            API.postText(text: message)
+            textField.text = ""
+        }
     }
     
     @objc func keyboardWillShow(_ notification:NSNotification){

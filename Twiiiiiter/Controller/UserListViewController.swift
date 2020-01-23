@@ -12,6 +12,7 @@ import Lottie
 class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    
     let animationView = AnimationView()
     fileprivate var users: [UserInfo.Data] = []
     var following: [Int] = []
@@ -21,21 +22,18 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
-        API.fetchRelationship(completion: { (idArray) in
-            self.following = idArray
-        })
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         startAnimation()
-        API.fetchUserInfo(completion: { (info) in
-            self.users = info
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.stopAnimation()
-            }
+        API.fetchRelationship(completion: { (idArray) in
+            self.following = idArray
+            
+            API.fetchUserInfo(completion: { (info) in
+                self.users = info
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.stopAnimation()
+                }
+            })
         })
     }
     
@@ -57,31 +55,33 @@ class UserListViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
         }
         //ボタンの処理
-        cell.button.addTarget(self, action: #selector(follow(_:)), for: .touchUpInside)
+        cell.button.addTarget(self, action: #selector(followButton(_:)), for: .touchUpInside)
         return cell
-    }
-    
-    @objc func follow(_ sender: UIButton) {
-        var isFollow = false
-        sender.isSelected = true
-        sender.backgroundColor = .white
-        //フォローしているか確認
-        API.fetchRelationship(completion: { (idArray) in
-            self.following = idArray
-        })
-        for data in following {
-            if sender.tag == data {
-                isFollow = true
-                sender.isSelected = false
-                sender.backgroundColor = UIColor(red: 64/255, green: 153/255, blue: 247/255, alpha: 1)
-            }
-        }
-        //フォローorフォロー解除
-        API.follow(followedId: sender.tag, isFollow: isFollow)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+    
+    @objc func followButton(_ sender: UIButton) {
+        //フォロー状態を反転
+        var isFollow = false
+        for i in 0..<following.count {
+            if sender.tag == following[i] {
+                isFollow = true
+                sender.isSelected = false
+                sender.backgroundColor = UIColor(red: 64/255, green: 153/255, blue: 247/255, alpha: 1)
+                following.remove(at: i)
+                break
+            }
+        }
+        if !isFollow {
+            sender.isSelected = true
+            sender.backgroundColor = .white
+            following.append(sender.tag)
+        }
+        //フォローorフォロー解除
+        API.follow(followedId: sender.tag, isFollow: isFollow)
     }
     
     func startAnimation(){

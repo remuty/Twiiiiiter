@@ -8,17 +8,21 @@
 
 import UIKit
 import Lottie
+import ActionCableClient
 
 class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     
-    var message = "iOSなのだ"
     let animationView = AnimationView()
     let screenSize = UIScreen.main.bounds.size
-    fileprivate var posts: [PostsInfo] = []
+    var message = ""
+    fileprivate var chats: [ChatsInfo] = []
     var following: [Int] = []
+    
+    var client: ActionCableClient!
+    var roomChannel: Channel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +35,90 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
         
-        //キーボード
+        startAnimation()
+        API.fetchRelationship(completion: { (idArray) in
+            self.following = idArray
+            self.fetch()
+        })
+        
+        //Rails ActionCableと繋ぐ
+        self.client = ActionCableClient(url: URL(string: "wss://ls123server.herokuapp.com/cable")!)
+        client.connect()
+        
+        client.onConnected = {
+            print("Connected!")
+            self.roomChannel = self.client.create("ChatRoomChannel")
+            if let roomChannel = self.roomChannel {
+                roomChannel.onReceive = { (JSON : Any?, error : Error?) in
+                    // 新しい投稿があると再読み込み
+                    if JSON != nil {
+                        self.fetch()
+                    }
+                    if let error = error {
+                        print("Received: ", error)
+                    }
+                }
+                
+                roomChannel.onSubscribed = {
+                    print("Subscribed")
+                }
+                
+                roomChannel.onUnsubscribed = {
+                    print("Unsubscribed")
+                }
+                
+                roomChannel.onRejected = {
+                    print("Rejected")
+                }
+            }
+        }
+        client.onDisconnected = {(error: Error?) in
+            print("Disconnected!")
+        }
+        
+        //キーボードに合わせてtextField位置調整
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //フォローが変更されたらチャットを再取得
+        API.fetchRelationship(completion: { (idArray) in
+            let saveFollowing = self.following
+            self.following = idArray
+            if saveFollowing != self.following {
+                self.fetch()
+            }
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //投稿の数
+        return chats.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //セルの内容
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
+        let idx = chats.count - indexPath.row - 1
+        cell.commentLabel.text = chats[idx].text
+        cell.userNameLabel.text = chats[idx].user.name
+        return cell
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text != ""{
+            message = textField.text!
+        }
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @IBAction func postMessage(_ sender: Any) {
+        API.postText(text: message)
     }
     
     @objc func keyboardWillShow(_ notification:NSNotification){
@@ -52,47 +136,6 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        startAnimation()
-        API.fetchRelationship(completion: { (idArray) in
-            self.following = idArray
-        })
-        API.fetchPosts(following: following,completion: { (posts) in
-            self.posts = posts
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.stopAnimation()
-            }
-        })
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //記事の数
-        return posts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath) as! TableViewCell
-        let idx = posts.count - indexPath.row - 1
-        cell.commentLabel.text = posts[idx].text
-        cell.userNameLabel.text = posts[idx].user.name
-        return cell
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text != ""{
-            message = textField.text!
-        }
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    @IBAction func postMessage(_ sender: Any) {
-        API.postText(text: message)
-    }
-    
     func startAnimation(){
         let animation = Animation.named("circleLotate")
         animationView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height/1.5)
@@ -105,6 +148,16 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     func stopAnimation(){
         animationView.removeFromSuperview()
+    }
+    
+    func fetch() {
+        API.fetchChats(following: self.following,completion: { (chats) in
+            self.chats = chats
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.stopAnimation()
+            }
+        })
     }
     /*
      // MARK: - Navigation

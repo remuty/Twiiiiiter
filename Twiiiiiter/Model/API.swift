@@ -10,9 +10,9 @@ import Foundation
 
 class API {
     
-    static func fetchPosts(following: [Int],completion: @escaping ([PostsInfo]) -> Swift.Void) {
+    static func fetchChats(following: [Int],completion: @escaping ([ChatsInfo]) -> Swift.Void) {
         
-        let url = URL(string: "https://ls123server.herokuapp.com/posts")
+        let url = URL(string: "https://ls123server.herokuapp.com/chats")
         let request = URLRequest(url: url!)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -21,17 +21,17 @@ class API {
             }
             
             do {
-                let info = try JSONDecoder().decode([PostsInfo].self, from: jsonData)
-                var posts:[PostsInfo] = []
+                let info = try JSONDecoder().decode([ChatsInfo].self, from: jsonData)
+                var chats:[ChatsInfo] = []
                 //フォロー中のユーザーの投稿を抽出
                 for i in 0..<info.count {
                     for data in following{
                         if info[i].user_id == data {
-                            posts.append(info[i])
+                            chats.append(info[i])
                         }
                     }
                 }
-                completion(posts)
+                completion(chats)
             } catch {
                 print(error.localizedDescription)
             }
@@ -78,7 +78,7 @@ class API {
     
     static func postText(text: String){
         
-        let url = URL(string: "https://ls123server.herokuapp.com/posts")
+        let url = URL(string: "https://ls123server.herokuapp.com/chats")
         let request = NSMutableURLRequest(url: url!)
         
         request.httpMethod = "POST"

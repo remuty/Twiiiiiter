@@ -8,15 +8,16 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: RoundedTextField!
     @IBOutlet weak var passwordTextField: RoundedTextField!
     
-    fileprivate var info: [UserInfo] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         //ログイン情報があるならログイン画面を飛ばす
         if UserDefaults.standard.object(forKey: "id") != nil{
@@ -28,6 +29,11 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     @IBAction func loginAction(_ sender: Any) {
